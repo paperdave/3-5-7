@@ -1,11 +1,12 @@
+// Interface for online play using socket.io
 import * as socket from 'socket.io-client';
 import { GameInterface, PlayerID, Spot } from './game-interface';
 
 function spotToIndex(spot: Spot) {
-    
+    return spot as any;
 }
 function indexToSpot(ind: number) {
-    
+    return ind as any;
 }
 
 export class SocketGameInterface extends GameInterface {
@@ -67,7 +68,7 @@ export class SocketGameInterface extends GameInterface {
         this.gameGrid[spot.row][spot.col] = true;
         this.emitPlay(spot);
 
-        this.io.emit("updatedMark", spot);
+        this.io.emit("updatedMark", spotToIndex(spot));
 
         const win = !this.gameGrid.reduce((prev, current) => current.reduce((prev, current) => !current || prev, false) || prev, false);
         if (win) {

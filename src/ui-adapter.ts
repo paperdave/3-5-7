@@ -1,3 +1,4 @@
+// Handles the game board, takes in a game interface handler.
 import { GameInterface } from "./game-interface";
 
 export function gameUIAdapter(game: GameInterface) {

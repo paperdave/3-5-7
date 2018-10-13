@@ -1,3 +1,5 @@
+// Makes the event emitter and base game interface class.
+// Holds some typedefs: PlayerID and Spot
 export type PlayerID = "player1" | "player2";
 export type Spot = {row: number, col: number};
 

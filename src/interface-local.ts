@@ -1,3 +1,4 @@
+// GameInterface for local multiplayer play
 import { GameInterface, Spot, PlayerID } from "./game-interface";
 
 export class LocalGameInterface extends GameInterface {

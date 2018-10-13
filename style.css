@@ -1,12 +1,16 @@
 body {
     font-family: 'Roboto', sans-serif;
     user-select: none;
+    margin: 0;
 }
 h1 {
     text-align: center;
 }
 * {
     box-sizing: border-box;
+}
+.menu {
+    padding-top:3em;
 }
 .menu, .game {
     opacity: 1;
@@ -60,7 +64,12 @@ button,.finish-turn.available {
 button{outline: none;}
 .game {
     display: none;
+    height: 427.19px;
     position: relative;
+    top: 50vh;
+    position: relative;
+    left: 0;
+    transform: translateY(-50%) translateY(-3.5em);
 }
 .gameframe {
     transition: all 150ms;
@@ -113,6 +122,7 @@ button{outline: none;}
     transition: all 150ms;
 }
 
-.menu {
-
+.container {
+    height: 100%;
+    width: 100%;
 }
