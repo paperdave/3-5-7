@@ -12,11 +12,11 @@ h1 {
 .menu {
     padding-top:3em;
 }
-.menu, .game {
+.menu, .game, .login {
     opacity: 1;
     transition: opacity 350ms;
 }
-.menu.fade, .game.fade {
+.fade {
     opacity: 0;
 }
 .menu, .login {
@@ -44,7 +44,7 @@ h1 {
     transition: transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: scale(0.85);
 }
-.finish-turn,button {
+.finish-turn,button, input[type=text] {
     background: gray;
     border: none;
     color: lightgray;
@@ -55,13 +55,22 @@ h1 {
     border-radius: 6px;
     transition: all 150ms;
 }
-button,.finish-turn.available {
+button,.finish-turn.available, input[type=text] {
     color: white;
     background: purple;
     cursor: pointer;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.363);
 }
-button{outline: none;}
+input[type=text] {
+    background: rgb(141, 64, 141);
+    padding-left: 0;
+    text-indent: 0.75em;
+    cursor: text;
+}
+input[type=text]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+button, input[type=text]{outline: none;}
 .game {
     display: none;
     height: 427.19px;
@@ -125,4 +134,10 @@ button{outline: none;}
 .container {
     height: 100%;
     width: 100%;
+}
+
+.connect-status {
+    text-align: center;
+    padding-top: 1em;
+    font-weight: bold;
 }

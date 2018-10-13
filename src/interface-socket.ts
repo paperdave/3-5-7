@@ -10,7 +10,7 @@ function indexToSpot(ind: number) {
 }
 
 export class SocketGameInterface extends GameInterface {
-    private io: SocketIOClient.Socket;
+    public io: SocketIOClient.Socket;
     private lobby: string[] = null;
     private yourName = "";
     private opponentName = "<loading>";
@@ -56,6 +56,9 @@ export class SocketGameInterface extends GameInterface {
         this.io.on("switchTurn", () => {
             this.turn = "player1";
             this.emitTurnEnd(this.turn);
+        });
+        this.onWinner(() => {
+            this.io.disconnect();
         });
     }
 

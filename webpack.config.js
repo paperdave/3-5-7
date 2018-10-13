@@ -21,5 +21,5 @@ module.exports = {
         filename: '357.js',
         path: outdir
     },
-    mode: "production"
+    mode: "development"
 };

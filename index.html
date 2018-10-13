@@ -23,9 +23,18 @@
                 <li>You win the game when your opponent turns the last mark red.</li>
             </ol>
         </div>
-        <div class="login">
+        <div class="login main-options">
             <button id=START_LOCAL_GAME>Play Local Game</button>
             <button id=SHOW_ONLINE_OPTIONS>Play Online</button>
+        </div>
+        <div class="login online-options fade" style="display:none;">
+            <button id="CANCEL_ONLINE_OPTIONS" spellcheck="false">X</button>
+            <input id="SERVER_TO_JOIN" type="text" placeholder="Server Address">
+            <input id="DISPLAY_NAME" type="text" placeholder="Display Name" maxlength="32" spellcheck="false">
+            <button id=START_ONLINE_GAME>JOIN</button>
+            <div class="connect-status">
+
+            </div>
         </div>
     </div>
     <div class="game">
