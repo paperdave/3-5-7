@@ -10,6 +10,7 @@ export abstract class GameInterface {
     public abstract makeEndTurn();
     public abstract canPressNextTurn(): boolean;
     public abstract getPlayerName(id: PlayerID): string;
+    public abstract getCurrentPlayer(): PlayerID;
     
     // Protectd Event Emitter Events
     protected emitGameReady() { this.emitEvent("gameReady"); }

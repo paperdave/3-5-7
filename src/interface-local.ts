@@ -44,4 +44,7 @@ export class LocalGameInterface extends GameInterface {
     public getPlayerName(id: PlayerID) {
         return id === "player1" ? "Player 1" : "Player 2";
     }
+    public getCurrentPlayer() {
+        return this.turn;
+    }
 }
