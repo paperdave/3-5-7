@@ -1,0 +1,4 @@
+{
+    // Not sure why, but if you remove this empty JSON File,
+    // typescript will throw an error, so like... dont.
+}

@@ -12,6 +12,9 @@ export class LocalGameInterface extends GameInterface {
 
     constructor() {
         super();
+        setTimeout(() => {
+            this.emitGameReady();
+        }, 0);
     }
 
     public makePlay(spot: Spot) {

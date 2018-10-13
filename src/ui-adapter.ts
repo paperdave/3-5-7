@@ -7,7 +7,11 @@ export function gameUIAdapter(game: GameInterface) {
     const winText = document.querySelector(".win-text");
 
     game.onGameReady(() => {
-        console.log("ADAPTER: Game is starting")
+        function brickClickListener() {
+            const row = parseInt(this.getAttribute("data-row"));
+            const col = parseInt(this.getAttribute("data-col"));
+            game.makePlay({ col, row });
+        }
         game.onPlay((spot) => {
             const brick = document.querySelector(`.brick[data-row="${spot.row}"][data-col="${spot.col}"]`);
     
@@ -22,11 +26,18 @@ export function gameUIAdapter(game: GameInterface) {
     
         game.onWinner((winner) => {
             // console.log("win!", game.getPlayerName(winner));
-            winText.innerHTML = `${game.getPlayerName(winner)} won the game.`
+            winText.innerHTML = `${game.getPlayerName(winner)} won the game.`;
             nextTurn.classList.remove("available");
             setTimeout(() => {
                 gameElement.classList.add("finished");
             }, 750);
+            setTimeout(() => {
+                document.querySelectorAll(".brick").forEach(elem => {
+                    elem.removeEventListener("click", brickClickListener);
+                    elem.classList.remove("taken"); 
+                });
+                gameElement.classList.remove("finished");
+            }, 5350);
         });
     
         status.innerHTML = `${game.getPlayerName(game.getCurrentPlayer())}'s Turn.`;
@@ -45,11 +56,7 @@ export function gameUIAdapter(game: GameInterface) {
         });
     
         document.querySelectorAll(".brick").forEach(elem => {
-            elem.addEventListener("click", () => {
-                const row = parseInt(elem.getAttribute("data-row"));
-                const col = parseInt(elem.getAttribute("data-col"));
-                game.makePlay({ col, row });
-            });
+            elem.addEventListener("click", brickClickListener);
         });
     
         nextTurn.addEventListener("click", () => {
@@ -61,4 +68,6 @@ export function gameUIAdapter(game: GameInterface) {
 
     // Debug use
     window["$current_game"] = game;
+
+    return game;
 }
