@@ -3,7 +3,7 @@ Turn based game about turning marks red, the person to turn the last mark red
 loses. Supports Online Multiplayer or Local Multiplayer play.
 
 *The online mode is compatible with [Hunter's version of 3-5-7](https://hparcells.me/games/3-5-7/)
-([Github](https://github.com/hparcells/3-5-7))*
+([GitHub](https://github.com/hparcells/3-5-7))*
 
 ## Rules
 1. You may turn as many marks as you want red, but they have to be in the same row.
