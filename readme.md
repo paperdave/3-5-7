@@ -13,7 +13,7 @@ loses. Supports Online Multiplayer or Local Multiplayer play.
 5. You win the game when your opponent turns the last mark red.
 
 ## Running a server
-Go to the [server repository]() and download the server program written in nodejs.
+Go to the [server repository](https://github.com/hparcells/3-5-7-server) and download the server program written in nodejs.
 
 ## Building
 The game is written in TypeScript, compiled with webpack. To build:
