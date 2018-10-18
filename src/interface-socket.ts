@@ -26,11 +26,11 @@ export class SocketGameInterface extends GameInterface {
         super();
         this.io = socket(uri);
         this.yourName = name;
-        this.io.emit("join", name);
+        this.io.emit("newPlayer", name);
         this.io.on("join", (list) => {
             this.lobby = list;
         });
-        this.io.on("startGame", (list) => {
+        this.io.on("playerUpdate", (list) => {
             if(this.yourName === list[0]) {
                 // we go first
                 this.opponentName = list[1];
@@ -42,7 +42,7 @@ export class SocketGameInterface extends GameInterface {
             }
             this.emitGameReady();
         });
-        this.io.on("updatedMark", (spot) => {
+        this.io.on("markUpdate", (spot) => {
             this.gameGrid[spot.row][spot.col] = true;
             this.emitPlay(spot);
             const win = !this.gameGrid.reduce((prev, current) => current.reduce((prev, current) => !current || prev, false) || prev, false);
@@ -53,7 +53,7 @@ export class SocketGameInterface extends GameInterface {
                 this.row = -1;
             }
         });
-        this.io.on("switchTurn", () => {
+        this.io.on("turnUpdate", () => {
             this.turn = "player1";
             this.emitTurnEnd(this.turn);
         });
