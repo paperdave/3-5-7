@@ -51,6 +51,7 @@ export class SocketGameInterface extends GameInterface {
                 return;
             }
 
+            this.lobby = list;
             if(this.yourName === list[0]) {
                 // we go first
                 this.opponentName = list[1];
@@ -74,9 +75,12 @@ export class SocketGameInterface extends GameInterface {
                 this.row = -1;
             }
         });
-        this.io.on("turnUpdate", () => {
-            this.turn = "player1";
-            this.emitTurnEnd(this.turn);
+        this.io.on("turnUpdate", (turn) => {
+            if ((this.yourName === this.lobby[0] && turn === 1)
+            &&  (this.yourName === this.lobby[1] && turn === 2)) {
+                this.turn = "player1";
+                this.emitTurnEnd(this.turn);
+            }
         });
         this.onWinner(() => {
             this.io.disconnect();
@@ -110,7 +114,7 @@ export class SocketGameInterface extends GameInterface {
         this.turn = "player2";
         this.emitTurnEnd(this.turn);
 
-        this.io.emit("switchTurn");
+        this.io.emit("switchTurns");
     }
 
     public getPlayerName(id: PlayerID) {
