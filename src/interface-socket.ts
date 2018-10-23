@@ -3,10 +3,29 @@ import * as socket from 'socket.io-client';
 import { GameInterface, PlayerID, Spot } from './game-interface';
 
 function spotToIndex(spot: Spot) {
-    return spot as any;
+    let ind = spot.col + 1;
+    if(spot.row == 1) ind+=3;
+    if(spot.row == 2) ind+=8;
+    return ind;
 }
-function indexToSpot(ind: number) {
-    return ind as any;
+function indexToSpot(ind: number): Spot {
+    switch(ind) {
+        case 1: return { row:0, col:0 };
+        case 2: return { row:0, col:1 };
+        case 3: return { row:0, col:2 };
+        case 4: return { row:1, col:0 };
+        case 5: return { row:1, col:1 };
+        case 6: return { row:1, col:2 };
+        case 7: return { row:1, col:3 };
+        case 8: return { row:1, col:4 };
+        case 9: return { row:1, col:0 };
+        case 10: return { row:2, col:1 };
+        case 11: return { row:2, col:2 };
+        case 12: return { row:2, col:3 };
+        case 13: return { row:2, col:4 };
+        case 14: return { row:2, col:5 };
+        case 15: return { row:2, col:6 };
+    }
 }
 
 export class SocketGameInterface extends GameInterface {
@@ -27,10 +46,11 @@ export class SocketGameInterface extends GameInterface {
         this.io = socket(uri);
         this.yourName = name;
         this.io.emit("newPlayer", name);
-        this.io.on("join", (list) => {
-            this.lobby = list;
-        });
         this.io.on("playerUpdate", (list) => {
+            if(list.length !== 2) {
+                return;
+            }
+
             if(this.yourName === list[0]) {
                 // we go first
                 this.opponentName = list[1];
@@ -42,7 +62,8 @@ export class SocketGameInterface extends GameInterface {
             }
             this.emitGameReady();
         });
-        this.io.on("markUpdate", (spot) => {
+        this.io.on("markUpdate", (row, mark) => {
+            const spot = indexToSpot(mark);
             this.gameGrid[spot.row][spot.col] = true;
             this.emitPlay(spot);
             const win = !this.gameGrid.reduce((prev, current) => current.reduce((prev, current) => !current || prev, false) || prev, false);
@@ -71,7 +92,7 @@ export class SocketGameInterface extends GameInterface {
         this.gameGrid[spot.row][spot.col] = true;
         this.emitPlay(spot);
 
-        this.io.emit("updatedMark", spotToIndex(spot));
+        this.io.emit("updatedMark", spot.row + 1, spotToIndex(spot));
 
         const win = !this.gameGrid.reduce((prev, current) => current.reduce((prev, current) => !current || prev, false) || prev, false);
         if (win) {
